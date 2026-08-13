@@ -3,6 +3,15 @@ resource "azurerm_resource_group" "Enterprise" {
   location = "West US"
 }
 
+terraform {
+  backend "azurerm" {
+    resource_group_name   = "Enterprise_RG"
+    storage_account_name  = "smallfilestorage"
+    container_name        = "smallcontainer"
+    key                   = "terraform.tfstate"
+  }
+}
+
 
 resource "azurerm_storage_account" "smallfile" {
   depends_on               = [azurerm_resource_group.Enterprise]
